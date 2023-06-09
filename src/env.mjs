@@ -23,6 +23,8 @@ export const env = createEnv({
     // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
     DISCORD_CLIENT_ID: z.string(),
     DISCORD_CLIENT_SECRET: z.string(),
+    GITHUB_ID: z.string(),
+    GITHUB_SECRET: z.string(),
     AI_MODE: z.string(),
     AI_API_KEY: z.string(),
   },
@@ -49,6 +51,8 @@ export const env = createEnv({
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     AI_MODE: process.env.AI_MODE,
     AI_API_KEY: process.env.AI_API_KEY,
+    GITHUB_ID: process.env.GITHUB_ID,
+    GITHUB_SECRET: process.env.GITHUB_SECRET,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.

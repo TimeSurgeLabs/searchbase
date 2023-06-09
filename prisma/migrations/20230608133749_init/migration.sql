@@ -1,5 +1,5 @@
 -- Enable vector extension
-CREATE EXTENSION IF NOT EXISTS vector;
+CREATE EXTENSION IF NOT EXISTS vector WITH SCHEMA public;
 -- CreateTable
 CREATE TABLE "Document" (
     "id" TEXT NOT NULL,

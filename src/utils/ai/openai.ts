@@ -1,23 +1,22 @@
 import { Configuration, OpenAIApi } from "openai";
-import { Tiktoken } from "@dqbd/tiktoken/lite";
-import cl100k_base from "@dqbd/tiktoken/encoders/cl100k_base.json";
+import {
+  type TiktokenModel,
+  type Tiktoken,
+  encoding_for_model,
+} from "@dqbd/tiktoken";
 
 import { BaseAI } from "./base";
 
 export class OpenAI extends BaseAI {
   public client: OpenAIApi;
-  public chatModel = "gpt-3.5-turbo";
+  public chatModel: TiktokenModel = "gpt-3.5-turbo";
   private embeddingsModel = "text-embedding-ada-002";
   private tokenizer: Tiktoken;
 
   constructor(apiKey: string) {
     super(apiKey);
     this.maxTokens = 4096;
-    this.tokenizer = new Tiktoken(
-      cl100k_base.bpe_ranks,
-      cl100k_base.special_tokens,
-      cl100k_base.pat_str
-    );
+    this.tokenizer = encoding_for_model(this.chatModel);
     const configuration = new Configuration({
       apiKey: this.apiKey,
     });
@@ -42,7 +41,6 @@ export class OpenAI extends BaseAI {
   async count_tokens(content: string): Promise<number> {
     const tokens = this.tokenizer.encode(content);
     const length = tokens.length;
-    this.tokenizer.free();
     return length;
   }
 
