@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import Header from "@/components/Header";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { IconSend } from "@tabler/icons-react";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { api } from "@/utils/api";
 import { useRouter } from "next/router";
 import { signIn, useSession } from "next-auth/react";
+
+import Header from "@/components/ChatHeader";
+import { api } from "@/utils/api";
+import ChatBubble from "@/components/ChatBubble";
 
 export default function Home() {
   const [message, setMessage] = useState<string>("");
@@ -68,42 +70,25 @@ export default function Home() {
       <div className="flex justify-center">
         <div className="w-3/4">
           <div className="w-full overflow-auto">
-            <div className="chat chat-start">
-              <div className="chat-bubble chat-bubble-secondary">
-                Hello! I am your friendly neighborhood Chat bot. How can I help
-                you today?
-              </div>
-            </div>
+            <ChatBubble align="end" variant="accent">
+              Hello! I am your friendly neighborhood Chat bot. How can I help
+              you today?
+            </ChatBubble>
             {conversation?.data?.messages.map((message, i) => (
-              <div
+              <ChatBubble
                 key={i}
-                className={`chat ${
-                  message.role !== "user" ? "chat-start" : "chat-end"
-                }`}
+                align={message.role !== "user" ? "end" : "start"}
+                variant={message.role === "user" ? "primary" : "accent"}
               >
-                <div
-                  className={`chat-bubble ${
-                    message.role !== "user"
-                      ? "chat-bubble-secondary"
-                      : "chat-bubble-accent"
-                  }`}
-                >
-                  <ReactMarkdown>{message.content}</ReactMarkdown>
-                </div>
-              </div>
+                {message.content}
+              </ChatBubble>
             ))}
             {isLoading && (
               <>
-                <div className="chat chat-end">
-                  <div className="chat-bubble chat-bubble-accent">
-                    <ReactMarkdown>{message}</ReactMarkdown>
-                  </div>
-                </div>
-                <div className="chat chat-start">
-                  <div className="chat-bubble chat-bubble-secondary">
-                    <span className="loading loading-dots loading-lg"></span>
-                  </div>
-                </div>
+                <ChatBubble align="start" variant="primary">
+                  <ReactMarkdown>{message}</ReactMarkdown>
+                </ChatBubble>
+                <ChatBubble align="end" variant="accent" loading />
               </>
             )}
           </div>

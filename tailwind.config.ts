@@ -6,4 +6,8 @@ export default {
     extend: {},
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["corporate", "business"],
+    darkTheme: "business",
+  },
 } satisfies Config;

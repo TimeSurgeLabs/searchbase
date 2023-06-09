@@ -9,9 +9,10 @@ export interface ChatBubbleProps {
     | "error"
     | "success"
     | "info";
-  children: React.ReactNode;
+  children?: React.ReactNode;
   align: "start" | "end";
   avatar?: string;
+  loading?: boolean;
 }
 
 export default function ChatBubble({
@@ -19,13 +20,10 @@ export default function ChatBubble({
   children,
   align,
   avatar,
+  loading,
 }: ChatBubbleProps) {
   return (
-    <div
-      className={`chat-bubble chat-bubble-${
-        variant || "primary"
-      } chat-${align}`}
-    >
+    <div className={`chat chat-${align}`}>
       {avatar && (
         <div className="chat-image avatar">
           <div className="w-10 rounded-full">
@@ -33,7 +31,13 @@ export default function ChatBubble({
           </div>
         </div>
       )}
-      <div className="chat-bubble">{children}</div>
+      <div className={`chat-bubble chat-bubble-${variant || "primary"}`}>
+        {loading ? (
+          <span className="loading loading-dots loading-lg"></span>
+        ) : (
+          children
+        )}
+      </div>
     </div>
   );
 }

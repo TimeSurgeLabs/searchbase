@@ -12,7 +12,7 @@ export const searchVector = async (
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   const embeddingSQL = pgvector.toSql(vector) as string;
   const resp: Document[] =
-    await prisma.$queryRaw`SELECT * FROM "Document" ORDER BY vector <-> ${embeddingSQL}::vector LIMIT ${limit}`;
+    await prisma.$queryRaw`SELECT id, content, 'updatedAt', 'createdAt' FROM "Document" ORDER BY vector <-> ${embeddingSQL}::vector LIMIT ${limit}`;
   return resp;
 };
 

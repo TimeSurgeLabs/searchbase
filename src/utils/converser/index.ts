@@ -41,7 +41,7 @@ export default async function converser(
     if (!message) {
       break;
     }
-    const newMessage = `Assistant: ${message.content}\n`;
+    const newMessage = `${message.role}: ${message.content}\n`;
     const messageTokens = await ai.count_tokens(newMessage);
     if (conversationTokens + messageTokens > maxConversationTokens) {
       continue;
@@ -52,7 +52,7 @@ export default async function converser(
 
   const messagesString = conversationHistory.reverse().join("");
   // combine the context and conversation history
-  const prompt = `${systemPrompt}${context}${messagesString}`;
+  const prompt = `${systemPrompt}${context}${messagesString}\nassistant:`;
 
   // generate a response
   const response = await ai.completion(prompt);

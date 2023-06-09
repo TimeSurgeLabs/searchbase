@@ -22,7 +22,7 @@ export const documentRouter = createTRPCRouter({
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       const embeddingSQL = pgvector.toSql(embedding) as string;
       await ctx.prisma
-        .$executeRaw`UPDATE "Document" SET "vector" = ${embeddingSQL}, "updatedAt" = ${updatedAt} WHERE "id" = ${id}`;
+        .$executeRaw`UPDATE "Document" SET "vector" = ${embeddingSQL}::vector, "updatedAt" = ${updatedAt} WHERE "id" = ${id}`;
 
       return {
         id,
