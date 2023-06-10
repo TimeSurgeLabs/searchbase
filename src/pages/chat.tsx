@@ -4,13 +4,13 @@
 import React, { useEffect } from "react";
 import { IconSend } from "@tabler/icons-react";
 import { useState } from "react";
-import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/router";
 import { signIn, useSession } from "next-auth/react";
 
 import Header from "@/components/ChatHeader";
 import { api } from "@/utils/api";
 import ChatBubble from "@/components/ChatBubble";
+import Head from "next/head";
 
 export default function Home() {
   const [message, setMessage] = useState<string>("");
@@ -67,17 +67,17 @@ export default function Home() {
   return (
     <main>
       <Header onClearChat={clear} />
-      <div className="flex justify-center">
-        <div className="w-3/4">
-          <div className="w-full overflow-auto">
-            <ChatBubble align="end" variant="accent">
+      <div>
+        <div className="w-full justify-center">
+          <div className="flex w-3/4 flex-col justify-center">
+            <ChatBubble align="start" variant="accent">
               Hello! I am your friendly neighborhood Chat bot. How can I help
               you today?
             </ChatBubble>
             {conversation?.data?.messages.map((message, i) => (
               <ChatBubble
                 key={i}
-                align={message.role !== "user" ? "end" : "start"}
+                align={message.role === "user" ? "end" : "start"}
                 variant={message.role === "user" ? "primary" : "accent"}
               >
                 {message.content}
@@ -85,10 +85,10 @@ export default function Home() {
             ))}
             {isLoading && (
               <>
-                <ChatBubble align="start" variant="primary">
-                  <ReactMarkdown>{message}</ReactMarkdown>
+                <ChatBubble align="end" variant="primary">
+                  {message}
                 </ChatBubble>
-                <ChatBubble align="end" variant="accent" loading />
+                <ChatBubble align="start" loading />
               </>
             )}
           </div>

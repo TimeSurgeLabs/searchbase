@@ -28,3 +28,6 @@ load directory server="http://localhost:3000":
 
 build-docker:
   docker build -t {{IMAGE_NAME}} . --network host --build-arg OPENAI_APIKEY=$OPENAI_APIKEY --build-arg DATABASE_URL=$DATABASE_URL --build-arg NEXTAUTH_URL=$NEXTAUTH_URL --build-arg NEXTAUTH_SECRET=$NEXTAUTH_SECRET  --build-arg GITHUB_ID=$GITHUB_ID --build-arg GITHUB_SECRET=$GITHUB_SECRET
+
+generate:
+  npx prisma generate

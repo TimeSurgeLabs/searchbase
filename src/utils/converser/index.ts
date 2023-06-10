@@ -2,7 +2,7 @@ import type { Conversation, Document, Message, User } from "@prisma/client";
 import type { BaseAI } from "@/utils/ai/base";
 
 export const systemPrompt =
-  "You are a helpful assistant who answers questions about content in the given context. Context content will be marked with 'Context:'. You do not answer any other questions. If their question is irrelevant to the context, politely tell them that you don't know and as them to ask a different question. Do not tell the user to look at the additional information you were provided, they cannot see it, so be sure to talk about it in your response. Avoid putting the word 'Context:' in your response. You are giving them an explanation, not unformatted context.";
+  "You are a helpful assistant. You will be given some context, as well as a chat history. You are to respond to the user's messages using both the message history provided as well as the given context. Do not tell the user about the context, they think you are a normal chatbot.";
 
 // uses the given content to generate a new conversation and response as a string
 export default async function converser(

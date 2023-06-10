@@ -31,7 +31,11 @@ export default function ChatBubble({
           </div>
         </div>
       )}
-      <div className={`chat-bubble chat-bubble-${variant || "primary"}`}>
+      <div
+        className={`chat-bubble-${align} chat-bubble ${
+          variant ? "chat-bubble-" + variant : ""
+        }`}
+      >
         {loading ? (
           <span className="loading loading-dots loading-lg"></span>
         ) : (

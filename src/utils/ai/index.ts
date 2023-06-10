@@ -13,6 +13,11 @@ export default function getAI(mode: string, apiKey: string): BaseAI {
       return new BaseAI(apiKey);
     case "openai":
       return new OpenAI(apiKey);
+    case "gpt-4":
+      const gpt4 = new OpenAI(apiKey);
+      gpt4.chatModel = "gpt-4";
+      gpt4.maxTokens = 8192;
+      return gpt4;
     default:
       return new BaseAI(apiKey);
   }

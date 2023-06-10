@@ -9,5 +9,6 @@ export default {
   daisyui: {
     themes: ["corporate", "business"],
     darkTheme: "business",
+    rtl: false,
   },
 } satisfies Config;
