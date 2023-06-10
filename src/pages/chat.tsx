@@ -66,9 +66,12 @@ export default function Home() {
 
   return (
     <main>
+      <Head>
+        <title>Chat</title>
+      </Head>
       <Header onClearChat={clear} />
       <div>
-        <div className="w-full justify-center">
+        <div className="flex w-full flex-col items-center justify-center">
           <div className="flex w-3/4 flex-col justify-center">
             <ChatBubble align="start" variant="accent">
               Hello! I am your friendly neighborhood Chat bot. How can I help

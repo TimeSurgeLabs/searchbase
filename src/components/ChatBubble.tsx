@@ -15,6 +15,16 @@ export interface ChatBubbleProps {
   loading?: boolean;
 }
 
+const VariantMap = {
+  primary: "chat-bubble-primary",
+  secondary: "chat-bubble-secondary",
+  accent: "chat-bubble-accent",
+  warning: "chat-bubble-warning",
+  error: "chat-bubble-error",
+  success: "chat-bubble-success",
+  info: "chat-bubble-info",
+};
+
 export default function ChatBubble({
   variant,
   children,
@@ -23,7 +33,7 @@ export default function ChatBubble({
   loading,
 }: ChatBubbleProps) {
   return (
-    <div className={`chat chat-${align}`}>
+    <div className={`chat ${align === "start" ? "chat-start" : "chat-end"}`}>
       {avatar && (
         <div className="chat-image avatar">
           <div className="w-10 rounded-full">
@@ -31,11 +41,7 @@ export default function ChatBubble({
           </div>
         </div>
       )}
-      <div
-        className={`chat-bubble-${align} chat-bubble ${
-          variant ? "chat-bubble-" + variant : ""
-        }`}
-      >
+      <div className={`chat-bubble ${variant ? VariantMap[variant] : ""}`}>
         {loading ? (
           <span className="loading loading-dots loading-lg"></span>
         ) : (
