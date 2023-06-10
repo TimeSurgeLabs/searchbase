@@ -81,6 +81,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     Conversations Conversation[]
+    role          String         @default("user")
 }
 
 model VerificationToken {
