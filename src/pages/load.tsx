@@ -1,3 +1,5 @@
+import Header from "@/components/Header";
+import Head from "next/head";
 import { useState } from "react";
 
 const processFiles = async (files: FileList) => {
@@ -49,7 +51,11 @@ export default function LoadPage() {
 
   return (
     <main>
-      <div className="flex min-h-screen flex-col justify-center  py-6 sm:py-12">
+      <Head>
+        <title>Load</title>
+      </Head>
+      <Header />
+      <div className="flex flex-col justify-center py-6 sm:py-12">
         <div className="relative sm:mx-auto sm:max-w-xl">
           <div className="card rounded-3xl shadow sm:p-10">
             <div className="w-full max-w-md">
