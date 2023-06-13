@@ -3,7 +3,7 @@ import { signOut } from "next-auth/react";
 
 const LogoutButton = () => {
   return (
-    <button className="btn-neutral btn" onClick={() => void signOut()}>
+    <button className="btn-ghost btn" onClick={() => void signOut()}>
       Log Out <IconLogout />
     </button>
   );

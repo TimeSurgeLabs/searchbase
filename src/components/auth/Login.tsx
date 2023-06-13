@@ -3,7 +3,7 @@ import { signIn } from "next-auth/react";
 
 const LoginButton = () => {
   return (
-    <button className="btn-neutral btn" onClick={() => void signIn()}>
+    <button className="btn-ghost btn" onClick={() => void signIn()}>
       Log In <IconLogin />
     </button>
   );

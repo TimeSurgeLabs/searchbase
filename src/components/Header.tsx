@@ -1,9 +1,12 @@
 import { useSession } from "next-auth/react";
 import LoginButton from "./auth/Login";
 import LogoutButton from "./auth/Logout";
+import Link from "next/link";
+import { IconHome, IconMessage, IconUpload } from "@tabler/icons-react";
 
 export default function Header() {
   const { data: session } = useSession();
+
   return (
     <header className="navbar" aria-label="Page Header">
       <div className="navbar-start ml-2 flex gap-4">
@@ -14,7 +17,16 @@ export default function Header() {
           Your company&apos;s knowledge base
         </p>
       </div>
-      <div className="navbar-end mr-2 mt-1 flex gap-4">
+      <div className="navbar-end mr-2 mt-1 flex gap-0">
+        <Link className="btn-ghost btn" href="/">
+          Home <IconHome />
+        </Link>
+        <Link className="btn-ghost btn" href="/chat">
+          Chat <IconMessage />
+        </Link>
+        <Link className="btn-ghost btn" href="/load">
+          Upload <IconUpload />
+        </Link>
         {!!session ? <LogoutButton /> : <LoginButton />}
       </div>
     </header>
