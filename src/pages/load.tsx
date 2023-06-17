@@ -54,7 +54,7 @@ export default function LoadPage() {
       <Head>
         <title>Load</title>
       </Head>
-      <Header />
+
       <div className="flex flex-col justify-center py-6 sm:py-12">
         <div className="relative sm:mx-auto sm:max-w-xl">
           <div className="card rounded-3xl shadow sm:p-10">

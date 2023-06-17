@@ -88,4 +88,32 @@ export const userRouter = createTRPCRouter({
 
       return { success: true };
     }),
+
+  getUsers: protectedProcedure.input(z.object({})).query(async ({ ctx }) => {
+    // check if a user is an admin or the first user
+    // if not, return an error
+    const { id: currentUserID } = ctx.session.user;
+    const currentUser = await ctx.prisma.user.findUnique({
+      where: {
+        id: currentUserID,
+      },
+    });
+    if (!currentUser) {
+      throw new Error("User not found");
+    }
+    if (currentUser.role !== "admin") {
+      // check the number of users in the database
+      const users = await ctx.prisma.user.findMany();
+      if (users.length > 1) {
+        throw new Error("You do not have permission to view other users");
+      }
+    }
+    // get all users from the db and return
+    const users = await ctx.prisma.user.findMany({
+      include: {
+        Document: true,
+      },
+    });
+    return users;
+  }),
 });

@@ -11,7 +11,6 @@ import ChatHeader from "@/components/ChatHeader";
 import { api } from "@/utils/api";
 import ChatBubble from "@/components/ChatBubble";
 import Head from "next/head";
-import Header from "@/components/Header";
 
 export default function Home() {
   const [message, setMessage] = useState<string>("");
@@ -71,7 +70,6 @@ export default function Home() {
       <Head>
         <title>Chat</title>
       </Head>
-      <Header />
       <div className="flex justify-center">
         <div className="flex w-full flex-col items-center justify-center rounded-xl bg-neutral p-1 text-neutral-content sm:w-3/4">
           <div className="flex w-full flex-col justify-center">

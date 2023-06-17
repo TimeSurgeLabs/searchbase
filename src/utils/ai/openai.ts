@@ -1,22 +1,19 @@
 import { Configuration, OpenAIApi } from "openai";
-import {
-  type TiktokenModel,
-  type Tiktoken,
-  encoding_for_model,
-} from "@dqbd/tiktoken";
+import { type Tiktoken, get_encoding } from "@dqbd/tiktoken";
 
+import { processContent } from "../content";
 import { BaseAI } from "./base";
 
 export class OpenAI extends BaseAI {
   public client: OpenAIApi;
-  public chatModel: TiktokenModel = "gpt-3.5-turbo";
+  public chatModel = "gpt-3.5-turbo";
   private embeddingsModel = "text-embedding-ada-002";
   private tokenizer: Tiktoken;
 
   constructor(apiKey: string) {
     super(apiKey);
     this.maxTokens = 4096;
-    this.tokenizer = encoding_for_model(this.chatModel);
+    this.tokenizer = get_encoding("cl100k_base");
     const configuration = new Configuration({
       apiKey: this.apiKey,
     });
@@ -63,5 +60,10 @@ export class OpenAI extends BaseAI {
     }
 
     return message.content;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async processContent(content: string): Promise<string[]> {
+    return processContent(content, 1024, this.tokenizer);
   }
 }

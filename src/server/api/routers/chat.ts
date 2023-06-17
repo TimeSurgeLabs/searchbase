@@ -115,7 +115,7 @@ export const chatRouter = createTRPCRouter({
       });
 
       // use the content to search the database
-      const searchResults = await searchText(content, 10, ctx.prisma, ctx.ai);
+      const searchResults = await searchText(content, 1000, ctx.prisma, ctx.ai);
 
       const newMessageContent = await converser(
         content,

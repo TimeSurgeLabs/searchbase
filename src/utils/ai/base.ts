@@ -29,4 +29,8 @@ export class BaseAI {
     const completion: string = "This is a completion.";
     return completion;
   }
+
+  async processContent(content: string): Promise<string[]> {
+    return [];
+  }
 }
