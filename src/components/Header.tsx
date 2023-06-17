@@ -2,10 +2,19 @@ import { useSession } from "next-auth/react";
 import LoginButton from "./auth/Login";
 import LogoutButton from "./auth/Logout";
 import Link from "next/link";
-import { IconHome, IconMessage, IconUpload } from "@tabler/icons-react";
+import {
+  IconHome,
+  IconMessage,
+  IconUpload,
+  IconUsers,
+} from "@tabler/icons-react";
+import { api } from "@/utils/api";
 
 export default function Header() {
   const { data: session } = useSession();
+  const { data: user } = api.users.getUser.useQuery({
+    id: session?.user?.id || "",
+  });
 
   return (
     <header className="navbar" aria-label="Page Header">
@@ -24,9 +33,16 @@ export default function Header() {
         <Link className="btn-ghost btn" href="/chat">
           Chat <IconMessage />
         </Link>
-        <Link className="btn-ghost btn" href="/load">
-          Upload <IconUpload />
-        </Link>
+        {user?.role === "admin" && (
+          <>
+            <Link className="btn-ghost btn" href="/load">
+              Upload <IconUpload />
+            </Link>
+            <Link className="btn-ghost btn" href="/users">
+              Users <IconUsers />
+            </Link>
+          </>
+        )}
         {!!session ? <LogoutButton /> : <LoginButton />}
       </div>
     </header>

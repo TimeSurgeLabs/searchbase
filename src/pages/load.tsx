@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import Head from "next/head";
 import { useState } from "react";
 
@@ -90,19 +89,27 @@ export default function LoadPage() {
                     <label htmlFor="file-upload" className="label">
                       Upload Files
                     </label>
-                    <input
-                      id="file-upload"
-                      name="file-upload"
-                      type="file"
-                      required
-                      multiple
-                      accept=".txt,.md"
-                      className="file-input w-full max-w-xs"
-                      onChange={handleFileChange}
-                    />
+                    <div className="join">
+                      <input
+                        id="file-upload"
+                        name="file-upload"
+                        type="file"
+                        required
+                        multiple
+                        accept=".txt,.md"
+                        className="file-input join-item w-full max-w-xs"
+                        onChange={handleFileChange}
+                      />
+                      <button
+                        onClick={() => setFiles(null)}
+                        className="btn-error join-item btn"
+                      >
+                        Clear
+                      </button>
+                    </div>
                   </div>
                   <button
-                    disabled={isLoading}
+                    disabled={isLoading || !files || files?.length === 0}
                     type="submit"
                     className="btn-primary btn mt-5"
                   >

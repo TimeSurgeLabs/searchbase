@@ -9,6 +9,20 @@ export const documentRouter = createTRPCRouter({
   load: protectedProcedure
     .input(z.object({ content: z.string() }))
     .query(async ({ input, ctx }) => {
+      // check if the current user is an admin
+      // get the current user from the DB and check role
+      // if the user is not an admin, return an error
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          id: ctx.session.user.id,
+        },
+      });
+      if (!user) {
+        throw new Error("User not found");
+      }
+      if (user.role !== "admin") {
+        throw new Error("You do not have permission to load documents");
+      }
       const { content } = input;
       const contentChunks = await ctx.ai.processContent(content);
       // insert the content with an empty vector
