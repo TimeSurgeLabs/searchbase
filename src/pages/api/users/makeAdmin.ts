@@ -28,7 +28,7 @@ const adminHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
       res.status(200).json(response);
     } catch (cause) {
-      // Another error occured
+      // Another error occurred
       console.error(cause);
       res.status(500).json({ message: "Internal server error", error: cause });
     }
@@ -39,7 +39,7 @@ const adminHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
       res.status(200).json(response);
     } catch (cause) {
-      // Another error occured
+      // Another error occurred
       console.error(cause);
       res.status(500).json({ message: "Internal server error", error: cause });
     }

@@ -30,6 +30,14 @@ export default function Users() {
     await refetch();
   };
 
+  const deleteUser = async (id: string) => {
+    const url = `/api/users/delete?id=${id}`;
+    await fetch(url, {
+      method: "DELETE",
+    });
+    await refetch();
+  };
+
   return (
     <main className="md:m-4">
       <Head>
@@ -39,6 +47,7 @@ export default function Users() {
         users={data}
         makeAdmin={makeAdmin}
         deleteAdmin={deleteAdmin}
+        deleteUser={deleteUser}
       />
     </main>
   );

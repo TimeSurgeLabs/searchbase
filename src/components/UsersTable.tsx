@@ -1,7 +1,8 @@
 import Image from "next/image";
 import type { User, Document } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { IconUser } from "@tabler/icons-react";
+import { IconTrash, IconUser } from "@tabler/icons-react";
+import ConfirmModal from "./Modal/Confirm";
 
 type TableUsers = User & { Document: Document[] };
 
@@ -9,18 +10,19 @@ interface TableProps {
   users?: TableUsers[];
   makeAdmin: (id: string) => void;
   deleteAdmin: (id: string) => void;
+  deleteUser: (id: string) => void;
 }
 
-const UsersTable = ({ users = [], makeAdmin, deleteAdmin }: TableProps) => {
+const UsersTable = ({
+  users = [],
+  makeAdmin,
+  deleteAdmin,
+  deleteUser,
+}: TableProps) => {
   const { data: session } = useSession();
 
   const genRow = (user: TableUsers, i: number) => (
     <tr key={i + 1}>
-      <th>
-        <label>
-          <input type="checkbox" className="checkbox" />
-        </label>
-      </th>
       <td>
         <div className="flex items-center space-x-3">
           {user.image ? (
@@ -72,7 +74,7 @@ const UsersTable = ({ users = [], makeAdmin, deleteAdmin }: TableProps) => {
           </button>
         </div>
       </td>
-      <th>
+      <td>
         <div className="tooltip" data-tip="View documents.">
           <button
             disabled={!user?.Document?.length}
@@ -81,56 +83,61 @@ const UsersTable = ({ users = [], makeAdmin, deleteAdmin }: TableProps) => {
             {user?.Document?.length || 0} Documents
           </button>
         </div>
-      </th>
+      </td>
+      <td>
+        <div className="tooltip" data-tip="Delete user.">
+          <ConfirmModal
+            id={`delete-user-${user.id}`}
+            title="Delete User"
+            description={`Are you sure you want to delete ${
+              user.name || "this user"
+            }? This action is irreversible.`}
+            buttonLabel={<IconTrash />}
+            buttonClassName="btn-error btn-sm btn"
+            onConfirm={() => void deleteUser(user.id)}
+            disabled={session?.user?.id === user.id}
+          />
+        </div>
+      </td>
     </tr>
   );
 
   const rows = users?.map(genRow) || [];
 
-  const checkAll = () => {
-    const checkboxes = document.querySelectorAll(".checkbox");
-    checkboxes.forEach((checkbox) => {
-      checkbox.setAttribute("checked", "true");
-    });
-  };
+  // const checkAll = () => {
+  //   const checkboxes = document.querySelectorAll(".checkbox");
+  //   checkboxes.forEach((checkbox) => {
+  //     checkbox.setAttribute("checked", "true");
+  //   });
+  // };
 
-  const uncheckAll = () => {
-    const checkboxes = document.querySelectorAll(".checkbox");
-    checkboxes.forEach((checkbox) => {
-      checkbox.removeAttribute("checked");
-    });
-  };
+  // const uncheckAll = () => {
+  //   const checkboxes = document.querySelectorAll(".checkbox");
+  //   checkboxes.forEach((checkbox) => {
+  //     checkbox.removeAttribute("checked");
+  //   });
+  // };
 
   return (
     <div className="overflow-x-auto">
       <table className="table-zebra table">
         <thead>
           <tr>
-            <th>
-              <label>
-                <input
-                  type="checkbox"
-                  className="checkbox"
-                  onChange={(e) =>
-                    e.currentTarget.checked ? checkAll() : uncheckAll()
-                  }
-                />
-              </label>
-            </th>
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
             <th>Documents</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
         <tfoot>
           <tr>
-            <th></th>
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
             <th>Documents</th>
+            <th>Delete</th>
           </tr>
         </tfoot>
       </table>

@@ -4,6 +4,7 @@ interface ModalProps {
   id: string;
   children: React.ReactNode;
   closeOnBackdropClick?: boolean;
+  disabled?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -12,6 +13,7 @@ const Modal: React.FC<ModalProps> = ({
   id,
   children,
   closeOnBackdropClick,
+  disabled,
 }) => {
   return (
     <>
@@ -19,6 +21,7 @@ const Modal: React.FC<ModalProps> = ({
         className={buttonClassName}
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         onClick={() => window?.[id as keyof Window]?.showModal()}
+        disabled={disabled}
       >
         {buttonLabel}
       </button>

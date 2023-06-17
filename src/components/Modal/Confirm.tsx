@@ -9,6 +9,7 @@ interface ConfirmModalProps {
   title: string;
   description: string;
   confirmLabel?: React.ReactNode;
+  disabled?: boolean;
 }
 
 const ConfirmModal: React.FC<ConfirmModalProps> = ({
@@ -20,12 +21,14 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
   title,
   description,
   confirmLabel = "Confirm",
+  disabled,
 }) => (
   <Modal
     id={id}
     closeOnBackdropClick={closeOnBackdropClick}
     buttonLabel={buttonLabel}
     buttonClassName={buttonClassName}
+    disabled={disabled}
   >
     <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 sm:text-xl">
       {title}
