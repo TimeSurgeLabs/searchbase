@@ -27,6 +27,7 @@ export const env = createEnv({
     GITHUB_SECRET: z.string(),
     AI_MODE: z.string(),
     AI_API_KEY: z.string(),
+    AI_BASE_URL: z.string(),
   },
 
   /**
@@ -51,6 +52,7 @@ export const env = createEnv({
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     AI_MODE: process.env.AI_MODE,
     AI_API_KEY: process.env.AI_API_KEY,
+    AI_BASE_URL: process.env.AI_BASE_URL,
     GITHUB_ID: process.env.GITHUB_ID,
     GITHUB_SECRET: process.env.GITHUB_SECRET,
   },

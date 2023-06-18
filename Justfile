@@ -15,10 +15,10 @@ dev-db:
   docker run --name postgres-pgvector -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=postgres -p 5432:5432 -v $(pwd)/data/db:/var/lib/postgresql/data --rm ankane/pgvector
 
 start: build-docker
-  docker compose --env-file=.env.compose up
+  docker compose -f docker/docker-compose.yml --env-file=.env up
 
 up: build-docker
-  docker compose --env-file=.env.compose up -d
+  docker compose -f docker/docker-compose.yml --env-file=.env up -d
 
 down:
   docker compose down

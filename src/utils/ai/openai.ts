@@ -6,8 +6,11 @@ import { BaseAI } from "./base";
 
 export class OpenAI extends BaseAI {
   public client: OpenAIApi;
-  public chatModel = "gpt-3.5-turbo";
-  private embeddingsModel = "text-embedding-ada-002";
+  public chatModel = "gpt-3.5-turbo"; // default chat model
+  public embeddingsModel = "text-embedding-ada-002"; // default embeddings model
+  public useChat = true; // whether to use the chat model or not
+  public chunkSize = 1024; // used to determine embedding chunk size
+  public returnTokens = 512; // used to determine how many tokens to return. Only used for non-chat models
   private tokenizer: Tiktoken;
 
   constructor(apiKey: string) {
@@ -42,9 +45,31 @@ export class OpenAI extends BaseAI {
   }
 
   async completion(prompt: string): Promise<string> {
-    const completion = await this.client.createChatCompletion({
+    if (this.useChat) {
+      const completion = await this.client.createChatCompletion({
+        model: this.chatModel,
+        messages: [{ role: "user", content: prompt }],
+      });
+
+      const data = completion?.data?.choices[0];
+
+      if (!data) {
+        throw new Error("No completion returned");
+      }
+
+      const message = data?.message;
+
+      if (!message) {
+        throw new Error("No message returned");
+      }
+
+      return message.content;
+    }
+
+    const completion = await this.client.createCompletion({
       model: this.chatModel,
-      messages: [{ role: "user", content: prompt }],
+      prompt,
+      max_tokens: this.returnTokens,
     });
 
     const data = completion?.data?.choices[0];
@@ -53,17 +78,17 @@ export class OpenAI extends BaseAI {
       throw new Error("No completion returned");
     }
 
-    const message = data?.message;
+    const text = data?.text;
 
-    if (!message) {
-      throw new Error("No message returned");
+    if (!text) {
+      throw new Error("No text returned");
     }
 
-    return message.content;
+    return text;
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await
   async processContent(content: string): Promise<string[]> {
-    return processContent(content, 1024, this.tokenizer);
+    return processContent(content, this.chunkSize, this.tokenizer);
   }
 }

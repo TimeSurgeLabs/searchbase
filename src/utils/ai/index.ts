@@ -1,5 +1,7 @@
 import { BaseAI } from "./base";
+import { FastChat } from "./fastchat";
 import { OpenAI } from "./openai";
+import { env } from "@/env.mjs";
 // this will be the main AI resolver
 // it will take in the current AI mode and return
 // an object with methods for each mode
@@ -23,6 +25,8 @@ export default function getAI(mode: string, apiKey: string): BaseAI {
       gpt.chatModel = "gpt-3.5-turbo-16k";
       gpt.maxTokens = 16384;
       return gpt;
+    case "fastchat-t5-v1.0":
+      return new FastChat(env.AI_BASE_URL);
     default:
       return new BaseAI(apiKey);
   }

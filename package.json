@@ -21,6 +21,7 @@
     "@trpc/next": "^10.26.0",
     "@trpc/react-query": "^10.26.0",
     "@trpc/server": "^10.26.0",
+    "@xenova/transformers": "^2.2.0",
     "daisyui": "^3.0.22",
     "next": "^13.4.2",
     "next-auth": "^4.22.1",
