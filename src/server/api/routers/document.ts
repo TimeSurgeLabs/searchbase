@@ -7,7 +7,7 @@ import pgvector from "pgvector/utils";
 
 export const documentRouter = createTRPCRouter({
   load: protectedProcedure
-    .input(z.object({ content: z.string() }))
+    .input(z.object({ content: z.string(), filename: z.string() }))
     .query(async ({ input, ctx }) => {
       // check if the current user is an admin
       // get the current user from the DB and check role
@@ -23,16 +23,20 @@ export const documentRouter = createTRPCRouter({
       if (user.role !== "admin") {
         throw new Error("You do not have permission to load documents");
       }
-      const { content } = input;
+      const { content, filename } = input;
       const contentChunks = await ctx.ai.processContent(content);
       // insert the content with an empty vector
+      let index = 0;
       for (const chunk of contentChunks) {
         const newEmbedding = await ctx.prisma.document.create({
           data: {
             content: chunk,
             userId: ctx.session.user.id,
+            index,
+            filename,
           },
         });
+        index += 1;
         const embedding = await ctx.ai.get_embedding(chunk);
         const updatedAt = new Date();
         const { id } = newEmbedding;

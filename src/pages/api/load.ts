@@ -14,14 +14,17 @@ const loadHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const ctx = await createTRPCContext({ req, res });
   const caller = appRouter.createCaller(ctx);
-  const { content } = req.body as { content: string };
+  const { content, filename } = req.body as {
+    content: string;
+    filename: string;
+  };
   if (content === undefined) {
     res.status(400).json({ message: "Missing content" });
     return;
   }
 
   try {
-    const response = await caller.document.load({ content });
+    const response = await caller.document.load({ content, filename });
     res.status(200).json(response);
   } catch (cause) {
     // Another error occurred

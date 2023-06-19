@@ -8,14 +8,15 @@ const processFiles = async (files: FileList) => {
   // for each file in the array, hit the load endpoint
   // with the text content of the file in the body of the request
   // req body structure: { content: string }
-  const promises = filesArray.map(async (file) => {
+  const promises = filesArray.map(async (file: File) => {
     const content = await file.text();
+    const filename = file.name;
     const res = await fetch("/api/load", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ content }),
+      body: JSON.stringify({ content, filename }),
     });
     return (await res.json()) as {
       id: string;

@@ -18,6 +18,8 @@ datasource db {
 
 model Document {
     id        String                       @id @default(cuid())
+    filename  String                       @default("")
+    index     Int                          @default(0)
     content   String
     vector    Unsupported("vector(1536)")?
     createdAt DateTime                     @default(now())
