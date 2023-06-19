@@ -1,3 +1,5 @@
+# only run the database and the app
+# for using an external API
 version: "3.9"
 name: searchbase-llm-lite
 services:
