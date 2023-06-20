@@ -40,3 +40,6 @@ build-docker:
 
 generate:
   npx prisma generate
+
+deploy:
+  npx prisma migrate deploy
