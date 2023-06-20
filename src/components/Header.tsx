@@ -9,6 +9,7 @@ import {
   IconUsers,
 } from "@tabler/icons-react";
 import { api } from "@/utils/api";
+import AdminMenu from "./AdminMenu";
 
 export default function Header() {
   const { data: session } = useSession();
@@ -33,16 +34,7 @@ export default function Header() {
         <Link className="btn-ghost btn" href="/chat">
           Chat <IconMessage />
         </Link>
-        {user?.role === "admin" && (
-          <>
-            <Link className="btn-ghost btn" href="/load">
-              Upload <IconUpload />
-            </Link>
-            <Link className="btn-ghost btn" href="/users">
-              Users <IconUsers />
-            </Link>
-          </>
-        )}
+        {user?.role === "admin" && <AdminMenu />}
         {!!session ? <LogoutButton /> : <LoginButton />}
       </div>
     </header>
