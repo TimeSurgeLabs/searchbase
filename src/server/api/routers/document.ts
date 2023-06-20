@@ -57,4 +57,37 @@ export const documentRouter = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       return searchVector(input.vector, input.limit, ctx.prisma);
     }),
+  getDocuments: protectedProcedure.query(async ({ ctx }) => {
+    const documents = await ctx.prisma.document.findMany({
+      include: {
+        user: true,
+      },
+    });
+    return documents;
+  }),
+  deleteDocument: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ input, ctx }) => {
+      // check to make sure the user calling is an admin
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          id: ctx.session.user.id,
+        },
+      });
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      if (user.role !== "admin") {
+        throw new Error("You do not have permission to delete documents");
+      }
+
+      // delete the document
+      await ctx.prisma.document.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 });

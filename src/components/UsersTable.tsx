@@ -104,20 +104,6 @@ const UsersTable = ({
 
   const rows = users?.map(genRow) || [];
 
-  // const checkAll = () => {
-  //   const checkboxes = document.querySelectorAll(".checkbox");
-  //   checkboxes.forEach((checkbox) => {
-  //     checkbox.setAttribute("checked", "true");
-  //   });
-  // };
-
-  // const uncheckAll = () => {
-  //   const checkboxes = document.querySelectorAll(".checkbox");
-  //   checkboxes.forEach((checkbox) => {
-  //     checkbox.removeAttribute("checked");
-  //   });
-  // };
-
   return (
     <div className="overflow-x-auto">
       <table className="table-zebra table">
