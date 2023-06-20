@@ -2,12 +2,7 @@ import { useSession } from "next-auth/react";
 import LoginButton from "./auth/Login";
 import LogoutButton from "./auth/Logout";
 import Link from "next/link";
-import {
-  IconHome,
-  IconMessage,
-  IconUpload,
-  IconUsers,
-} from "@tabler/icons-react";
+import { IconHome, IconMessage } from "@tabler/icons-react";
 import { api } from "@/utils/api";
 import AdminMenu from "./AdminMenu";
 

@@ -33,7 +33,7 @@ const DocumentTable = ({ documents = [], refetch }: TableProps) => {
     });
   };
 
-  const deleteSelected = () => {
+  const deleteSelected = async () => {
     const checkboxes = document.querySelectorAll(".checkbox");
     const ids: string[] = [];
     checkboxes.forEach((checkbox) => {
@@ -42,13 +42,15 @@ const DocumentTable = ({ documents = [], refetch }: TableProps) => {
         name && ids.push(name);
       }
     });
-    ids.forEach((id) => {
-      try {
-        deleteDocument && void deleteDocument(id);
-      } catch (e) {
-        console.log(e);
-      }
-    });
+    await Promise.all(
+      ids.map(async (id) => {
+        try {
+          deleteDocument && (await deleteDocument(id));
+        } catch (e) {
+          console.log(e);
+        }
+      })
+    );
     // HACK. TODO: Fix this.
     window.location.reload();
   };
@@ -150,7 +152,7 @@ const DocumentTable = ({ documents = [], refetch }: TableProps) => {
               <ConfirmModal
                 title="Delete Selected"
                 onConfirm={() => {
-                  deleteSelected();
+                  void deleteSelected();
                 }}
                 id="deleteSelected"
                 buttonLabel={<IconTrash />}
