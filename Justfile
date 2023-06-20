@@ -2,6 +2,9 @@ set dotenv-load
 
 IMAGE_NAME:="ghcr.io/timesurgelabs/searchbase-llm:latest"
 
+default:
+  just --list
+
 migrate:
   npx prisma migrate dev
 
@@ -25,6 +28,9 @@ logs:
 
 down:
   docker compose -f docker/docker-compose.yml down
+
+build:
+  docker compose -f docker/docker-compose.yml build
 
 load directory server="http://localhost:3000":
   node scripts/load.js {{directory}} {{server}}
