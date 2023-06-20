@@ -65,6 +65,19 @@ export const documentRouter = createTRPCRouter({
     });
     return documents;
   }),
+  getDocumentsByUser: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const documents = await ctx.prisma.document.findMany({
+        where: {
+          userId: input.userId,
+        },
+        include: {
+          user: true,
+        },
+      });
+      return documents;
+    }),
   deleteDocument: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input, ctx }) => {

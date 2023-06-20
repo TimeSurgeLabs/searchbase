@@ -3,6 +3,7 @@ import type { User, Document } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { IconTrash, IconUser } from "@tabler/icons-react";
 import ConfirmModal from "./Modal/Confirm";
+import Link from "next/link";
 
 type TableUsers = User & { Document: Document[] };
 
@@ -76,12 +77,12 @@ const UsersTable = ({
       </td>
       <td>
         <div className="tooltip" data-tip="View documents.">
-          <button
-            disabled={!user?.Document?.length}
+          <Link
+            href={`/documents/${user.id}`}
             className="btn-primary btn-xs btn"
           >
             {user?.Document?.length || 0} Documents
-          </button>
+          </Link>
         </div>
       </td>
       <td>

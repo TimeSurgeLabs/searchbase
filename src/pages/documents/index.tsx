@@ -4,6 +4,7 @@ import { api } from "@/utils/api";
 
 export default function Documents() {
   const { data, refetch } = api.document.getDocuments.useQuery();
+  
 
   return (
     <main className="md:m-4">
