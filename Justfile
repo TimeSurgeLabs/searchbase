@@ -20,8 +20,11 @@ start:
 up:
   docker compose -f docker/docker-compose.yml --env-file=.env up -d
 
+logs:
+  docker compose -f docker/docker-compose.yml logs 
+
 down:
-  docker compose down
+  docker compose -f docker/docker-compose.yml down
 
 load directory server="http://localhost:3000":
   node scripts/load.js {{directory}} {{server}}
