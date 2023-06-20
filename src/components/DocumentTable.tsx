@@ -3,6 +3,7 @@ import { IconTrash } from "@tabler/icons-react";
 import ConfirmModal from "./Modal/Confirm";
 import Image from "next/image";
 import { IconUser } from "@tabler/icons-react";
+import Link from "next/link";
 
 type TableDocument = Document & { user: User };
 
@@ -81,7 +82,10 @@ const DocumentTable = ({ documents = [], refetch }: TableProps) => {
         </div>
       </td>
       <td>
-        <div className="flex items-center space-x-3">
+        <Link
+          href={`/documents/${document.userId}`}
+          className="flex items-center space-x-3 hover:cursor-pointer"
+        >
           {document.user.image ? (
             <div className="avatar">
               <div className="mask mask-circle h-12 w-12">
@@ -105,7 +109,7 @@ const DocumentTable = ({ documents = [], refetch }: TableProps) => {
           <div>
             <div className="font-bold">{document.user.name}</div>
           </div>
-        </div>
+        </Link>
       </td>
       <td>
         <div className="tooltip" data-tip="Delete document.">
