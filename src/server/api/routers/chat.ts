@@ -3,6 +3,8 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { searchText } from "@/utils/helpers/search";
 import converser from "@/utils/converser";
+import openAIConverser from "@/utils/converser/openai";
+import { OpenAI } from "@/utils/ai/openai";
 
 export const chatRouter = createTRPCRouter({
   getConversation: protectedProcedure
@@ -117,12 +119,22 @@ export const chatRouter = createTRPCRouter({
       // use the content to search the database
       const searchResults = await searchText(content, 1000, ctx.prisma, ctx.ai);
 
-      const newMessageContent = await converser(
-        content,
-        conversation,
-        searchResults,
-        ctx.ai
-      );
+      let newMessageContent = "";
+      if (ctx.ai instanceof OpenAI) {
+        newMessageContent = await openAIConverser(
+          content,
+          conversation,
+          searchResults,
+          ctx.ai
+        );
+      } else {
+        newMessageContent = await converser(
+          content,
+          conversation,
+          searchResults,
+          ctx.ai
+        );
+      }
 
       const newMessage = await ctx.prisma.message.create({
         data: {
