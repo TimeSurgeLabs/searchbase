@@ -12,9 +12,9 @@ Searchbase brings you an open-source alternative to ChatGPT that can be deployed
 
 * **Open Source Flexibility** - Searchbase is licensed under the [Apache 2.0 License](LICENSE), offering you the benefits of an open-source platform including transparency, flexibility, and community support.
 
-* **Modern, Robust Tooling** - Built on a foundation of industry-leading technologies such as Tailwind, Next.js, NextAuth, PostgreSQL, pgvector, and Docker, Searchbase offers a modern and robust platform for your conversational AI needs.
+* **Modern, Robust Tooling** - Built on a foundation of industry-leading technologies such as [Tailwind](https://tailwindcss.com/), [Next.js](https://nextjs.org/), [NextAuth](https://next-auth.js.org/), [PostgreSQL](https://www.postgresql.org/), [pgvector](https://github.com/pgvector/pgvector), and [Docker](https://www.docker.com/), Searchbase offers a modern and robust platform for your conversational AI needs.
 
-* **Enterprise Support** - For larger organizations or those seeking a more tailored experience, [Contact Us](https://timesurgelabs.com/#contact) for information on enterprise support plans. Benefit from our expertise to enhance performance, maximize uptime, and facilitate rapid issue resolution.
+* **Enterprise Support** - For larger organizations or those seeking a more tailored experience, [Contact us](https://timesurgelabs.com/#contact) for information on enterprise support plans. Benefit from our expertise to enhance performance, maximize uptime, and facilitate rapid issue resolution.
 
 * **Enhanced Efficiency** - By integrating with your existing resources, Searchbase boosts your efficiency by enabling quick and accurate responses, reducing the time spent on information retrieval.
 
