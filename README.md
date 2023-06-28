@@ -1,28 +1,74 @@
-# Create T3 App
+# <h1 align="center">Searchbase</h1>
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+### <p align="center"> Fully local or hybrid cloud FOSS ChatGPT alternative with embeddings support.</p>
 
-## What's next? How do I make an app with this?
+## Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+* **Fully local or hybrid cloud** - You can run Searchbase fully locally via open source LLMs, use the OpenAI API while keeping data private, or we can [host an LLM for you](https://timesurgelabs.com/#contact)! Searchbase is as flexible and secure as you need it to be.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+* **Embeddings Support** - Upload company documentation, code, and more to create a custom LLM that understands your company. Never have to sift through irrelevant docs to find the answers you're looking for!
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+* **Open Source** - Licensed under the [Apache 2.0 License](LICENSE).
 
-## Learn More
+* **Modern Tooling** - Built with Tailwind, Next.js, NextAuth, PostgreSQL, pgvector, and Docker.
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+* **Enterprise Support** - [Contact Us](https://timesurgelabs.com/#contact) for 
+information on enterprise support plans.
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Versions
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+There are two versions available for installation: **Searchbase** and **Searchbase Lite**.
 
-## How do I deploy this?
+* **Searchbase** is intended to be the most secure and private version for enterprises where security is at the forefront. It is fully local and does not require any external API calls. However because of this, its by far the heaviest version and requires at least* 250GB of SSD storage, a GPU with at least 8GB of VRAM* to run, as well as Docker Compose GPU passthrough support. Only Linux installation is supported.
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+* **Searchbase Lite** is intended for use cases where security isn't at the forefront, but you either still want to keep your data stored locally, or want company information or documentation automatically embedded into an LLM-powered Chatbot. It only has two containers and can run on as little as 2GB of RAM and a single vCore, with 4GB of RAM and 2 vCores recommended. It utilizes the OpenAI API for calls to the LLM and does require a valid API key. Searchbase Lite can also be used with a remotely hosted LLM that you own and run via [FastChat](https://github.com/lm-sys/FastChat#api), or [we can run one for your company](https://timesurgelabs.com/#contact). Installation is supported on x86 machines running Docker Compose.
+
+## Installation
+
+Currently we only support installation via [Docker Compose](https://docs.docker.com/compose/). More installation methods will be added in the future. The installation process for the two versions is the same, the only difference is the Docker Compose file used. 
+
+* For **Searchbase**, use the `docker/docker-compose.yml` file.
+* For **Searchbase Lite**, use the `docker/docker-compose-lite.yml` file.
+
+```sh
+git clone https://github.com/TimeSurgeLabs/searchbase-llm.git
+cd searchbase-llm
+docker compose -f docker/docker-compose.yml build # or docker compose -f docker/docker-compose-lite.yml build
+cp .env.example .env
+nano .env # or open in your favorite text editor
+```
+
+### Configuration
+
+For both versions:
+* `NEXTAUTH_URL` - The URL of your Searchbase instance. This is used for authentication and should be set to the URL you will be accessing Searchbase from. If you are not sure what this is going to be yet, you can set it to `http://localhost:3000` for now.
+* `NEXTAUTH_SECRET` - A random string used to encrypt cookies. Generate one with `openssl rand -hex 32`.
+* `DISCORD_CLIENT_ID` and `DISCORD_CLIENT_SECRET` - Your Discord OAuth2 client ID and secret. You can create a new application [here](https://discord.com/developers/applications).
+* `GITHUB_ID` and `GITHUB_SECRET` - Your GitHub OAuth2 client ID and secret. You can create a new application [here](https://github.com/settings/developers).
+
+For **Searchbase**:
+* `AI_MODE` - Set to the AI model that in configured in `docker/docker-compose.yml`. By default this is `fastchat-t5-3b-v1.0`.
+* `AI_BASE_URL` - Set this to `http://fastchat-api-server:8000/v1`.
+
+For **Searchbase Lite**:
+* `AI_MODE` - Set this to any AI model that your account has access to. We recommend `gpt-3.5-turbo-16k` for the best balance of performance and cost.
+* `AI_BASE_URL` - Leave blank.
+* `AI_API_KEY` - Your OpenAI API key. You can find this [here](https://platform.openai.com/account/api-keys).
+
+### Running
+
+Once your `.env` is configured, you can start Searchbase with:
+
+```sh
+docker compose -f docker/docker-compose.yml up -d # or docker compose -f docker/docker-compose-lite.yml up -d
+```
+
+### Accessing
+
+Searchbase will be available at the URL you set in `NEXTAUTH_URL` . If you set it to `http://localhost:3000` , you can access it at `http://localhost:3000` . 
+
+### Creating the First User
+
+Go to the app and log in via the button in the top right of the screen. The first user can make themselves and admin by going to `http://localhost:3000/users` (or whatever your URL is) and clicking the green button next to the username that says `USER` . This will make them an admin which will allow them to manage users, upload data, and manage data. The button will be greyed out so that you can't accidentally demote yourself. Refresh the page to see the new "Admin" menu. Once this is complete you can use the admin menu to manage and see users, upload documents, and manage documents.
+
+<small> * Depending on LLM model selected. </small>
