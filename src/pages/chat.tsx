@@ -48,7 +48,10 @@ export default function Home() {
       setMessage("");
     } catch (e) {
       console.error(e);
-      alert(e);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+      window.error_modal.showModal();
     }
     setIsLoading(false);
   };
@@ -71,6 +74,18 @@ export default function Home() {
       <Head>
         <title>Chat</title>
       </Head>
+      <dialog id="error_modal" className="modal">
+        <form method="dialog" className="modal-box">
+          <h3 className="text-lg font-bold">Error sending chat!</h3>
+          <p className="py-4">Please try again later!</p>
+          <div className="modal-action">
+            <button className="btn-error btn">Close</button>
+          </div>
+        </form>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
       <div className="flex justify-center">
         <div className="flex w-full flex-col items-center justify-center rounded-xl bg-neutral p-1 text-neutral-content sm:w-3/4">
           <div className="flex w-full flex-col justify-center">
