@@ -38,11 +38,24 @@ export default function LoadPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    setIsLoading(true);
-    e.preventDefault();
-    if (!files || files?.length === 0) return;
-    await processFiles(files);
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      e.preventDefault();
+      if (!files || files?.length === 0) return;
+      await processFiles(files);
+      setIsLoading(false);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+      window.success_modal.showModal();
+    } catch (e) {
+      console.error(e);
+      setIsLoading(false);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+      window.error_modal.showModal();
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +67,32 @@ export default function LoadPage() {
       <Head>
         <title>Load</title>
       </Head>
+
+      <dialog id="success_modal" className="modal">
+        <form method="dialog" className="modal-box">
+          <h3 className="text-lg font-bold">Successfully Uploaded Files!</h3>
+          <p className="py-4">You are now free to start chatting!</p>
+          <div className="modal-action">
+            <button className="btn-success btn">Close</button>
+          </div>
+        </form>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
+      <dialog id="error_modal" className="modal">
+        <form method="dialog" className="modal-box">
+          <h3 className="text-lg font-bold">Error Uploading Files!</h3>
+          <p className="py-4">Please try again later!</p>
+          <div className="modal-action">
+            <button className="btn-error btn">Close</button>
+          </div>
+        </form>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
 
       <div className="flex flex-col justify-center py-6 sm:py-12">
         <div className="relative sm:mx-auto sm:max-w-xl">

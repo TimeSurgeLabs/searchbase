@@ -11,6 +11,7 @@ import ChatHeader from "@/components/ChatHeader";
 import { api } from "@/utils/api";
 import ChatBubble from "@/components/ChatBubble";
 import Head from "next/head";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 export default function Home() {
   const [message, setMessage] = useState<string>("");
@@ -85,7 +86,7 @@ export default function Home() {
                 align={message.role === "user" ? "end" : "start"}
                 variant={message.role === "user" ? "primary" : "accent"}
               >
-                {message.content}
+                <ReactMarkdown>{message.content}</ReactMarkdown>
               </ChatBubble>
             ))}
             {isLoading && (

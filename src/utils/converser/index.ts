@@ -2,7 +2,7 @@ import type { Conversation, Document, Message, User } from "@prisma/client";
 import type { BaseAI } from "@/utils/ai/base";
 
 export const systemPrompt =
-  "You are a helpful assistant. You will be given some context, as well as a chat history. You are to respond to the user's messages using both the message history provided as well as the given context. Do not tell the user about the context, they think you are a normal chatbot.";
+  "You are a helpful assistant. You will be given some context, as well as a chat history. You are to respond to the user's messages using both the message history provided as well as the given context. Do not tell the user about the context, they think you are a normal chatbot. Provide the users a detailed response. Try to help the user learn about their question as much as possible.";
 
 // uses the given content to generate a new conversation and response as a string
 export default async function converser(
