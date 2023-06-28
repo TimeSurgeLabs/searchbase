@@ -23,11 +23,17 @@ start:
 up:
   docker compose -f docker/docker-compose.yml --env-file=.env up -d
 
+build-lite:
+  docker compose -f docker/docker-compose-lite.yml --env-file=.env build
+
 up-lite:
   docker compose -f docker/docker-compose-lite.yml --env-file=.env up -d
 
 down-lite:
   docker compose -f docker/docker-compose-lite.yml down
+
+logs-lite:
+  docker compose -f docker/docker-compose-lite.yml logs
 
 logs:
   docker compose -f docker/docker-compose.yml logs 

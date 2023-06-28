@@ -1,3 +1,4 @@
+import { get_encoding } from "@dqbd/tiktoken";
 import type { OpenAI } from "./../ai/openai";
 import type { Conversation, Document, Message, User } from "@prisma/client";
 import type {
@@ -7,6 +8,16 @@ import type {
 
 export const systemPrompt =
   "You are a helpful assistant. You will be given some context, as well as a chat history. You are to respond to the user's messages using both the message history provided as well as the given context. Do not tell the user about the context, they think you are a normal chatbot. Provide the users a detailed response. Try to help the user learn about their question as much as possible.";
+
+// dirty fix. Needs improved
+const tokenizer = get_encoding("cl100k_base");
+
+// eslint-disable-next-line @typescript-eslint/require-await
+async function count_tokens(content: string): Promise<number> {
+  const tokens = tokenizer.encode(content);
+  const length = tokens.length;
+  return length;
+}
 
 const countTokens = async (
   msg: ChatCompletionRequestMessage,
@@ -34,16 +45,16 @@ export default async function converser(
   let contextTokens = await countTokens(
     messages[0] as ChatCompletionRequestMessage,
     // eslint-disable-next-line @typescript-eslint/unbound-method
-    ai.count_tokens
+    count_tokens
   );
   let context = "Context:\n";
-  contextTokens += await ai.count_tokens(context);
+  contextTokens += await count_tokens(context);
   for (let i = 0; i < results.length; i++) {
     const result = results[i];
     if (!result) {
       break;
     }
-    const resultTokens = await ai.count_tokens(result.content);
+    const resultTokens = await count_tokens(result.content);
     // open AI has significantly more tokens than others,
     // so we can get away with a higher threshold
     if (contextTokens + resultTokens > ai.maxTokens / 2) {
@@ -67,7 +78,7 @@ export default async function converser(
   let conversationTokens = await countTokens(
     conversationHistory[0] as ChatCompletionRequestMessage,
     // eslint-disable-next-line @typescript-eslint/unbound-method
-    ai.count_tokens
+    count_tokens
   );
 
   for (let i = 0; i < messageHistory.length; i++) {
@@ -82,7 +93,7 @@ export default async function converser(
     const messageTokens = await countTokens(
       newMessage,
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      ai.count_tokens
+      count_tokens
     );
     if (conversationTokens + messageTokens > ai.maxTokens / 2) {
       continue;
