@@ -1,82 +1,49 @@
 # <h1 align="center">Searchbase</h1>
 
-### <p align="center"> Fully local or hybrid cloud FOSS ChatGPT alternative with embeddings support.</p>
+### <p align="center">Your Intelligent and Versatile FOSS ChatGPT Alternative for High-Security Environments</p>
+
+Searchbase brings you an open-source alternative to ChatGPT that can be deployed fully locally, on a hybrid cloud, or be hosted for you, offering unparalleled flexibility and security tailored to your needs. With support for embeddings, it utilizes your company's existing resources to deliver highly relevant responses in a conversational context. Enterprise-level support is available for organizations looking to leverage our expertise for an optimized experience.
 
 ## Features
 
-* **Fully local or hybrid cloud** - You can run Searchbase fully locally via open source LLMs, use the OpenAI API while keeping data private, or we can [host an LLM for you](https://timesurgelabs.com/#contact)! Searchbase is as flexible and secure as you need it to be.
+* **Fully Local or Hybrid Cloud Deployment** - With Searchbase, you can choose your preferred deployment scenario based on your business's privacy and flexibility needs. From running fully locally using open-source LLMs to employing the OpenAI API while maintaining data privacy or letting us host an LLM for you, Searchbase adapts to your requirements.
 
-* **Embeddings Support** - Upload company documentation, code, and more to create a custom LLM that understands your company. Never have to sift through irrelevant docs to find the answers you're looking for!
+* **Embeddings Support** - Empower your Searchbase instance by uploading company documentation, code, and other relevant resources. This creates a custom LLM that truly understands your organization, enabling quick and accurate responses without having to sift through volumes of data.
 
-* **Open Source** - Licensed under the [Apache 2.0 License](LICENSE).
+* **Open Source Flexibility** - Searchbase is licensed under the [Apache 2.0 License](LICENSE), offering you the benefits of an open-source platform including transparency, flexibility, and community support.
 
-* **Modern Tooling** - Built with Tailwind, Next.js, NextAuth, PostgreSQL, pgvector, and Docker.
+* **Modern, Robust Tooling** - Built on a foundation of industry-leading technologies such as Tailwind, Next.js, NextAuth, PostgreSQL, pgvector, and Docker, Searchbase offers a modern and robust platform for your conversational AI needs.
 
-* **Enterprise Support** - [Contact Us](https://timesurgelabs.com/#contact) for 
-information on enterprise support plans.
+* **Enterprise Support** - For larger organizations or those seeking a more tailored experience, [Contact Us](https://timesurgelabs.com/#contact) for information on enterprise support plans. Benefit from our expertise to enhance performance, maximize uptime, and facilitate rapid issue resolution.
+
+* **Enhanced Efficiency** - By integrating with your existing resources, Searchbase boosts your efficiency by enabling quick and accurate responses, reducing the time spent on information retrieval.
+
+* **Cost-Effective** - With two versions available, Searchbase allows you to choose a deployment that matches your business requirements and budget, ensuring a cost-effective conversational AI solution.
+
+* **Security Focused** - Searchbase is designed with a strong focus on data privacy and security, making it a reliable choice for organizations with stringent data handling and privacy policies.
 
 ## Versions
 
-There are two versions available for installation: **Searchbase** and **Searchbase Lite**.
+Searchbase offers two versions for installation: **Searchbase** and **Searchbase Lite**, each designed for unique deployment scenarios.
 
-* **Searchbase** is intended to be the most secure and private version for enterprises where security is at the forefront. It is fully local and does not require any external API calls. However because of this, its by far the heaviest version and requires at least* 250GB of SSD storage, a GPU with at least 8GB of VRAM* to run, as well as Docker Compose GPU passthrough support. Only Linux installation is supported.
+* **Searchbase** is targeted towards enterprises prioritizing maximum data security and privacy. This version is fully local and does not require any external API calls, offering a high-security deployment. It is the heaviest version and requires at least* 250GB of SSD storage, a GPU with at least 8GB of VRAM* to run, as well as Docker Compose GPU passthrough support. Only Linux installation is supported.
 
-* **Searchbase Lite** is intended for use cases where security isn't at the forefront, but you either still want to keep your data stored locally, or want company information or documentation automatically embedded into an LLM-powered Chatbot. It only has two containers and can run on as little as 2GB of RAM and a single vCore, with 4GB of RAM and 2 vCores recommended. It utilizes the OpenAI API for calls to the LLM and does require a valid API key. Searchbase Lite can also be used with a remotely hosted LLM that you own and run via [FastChat](https://github.com/lm-sys/FastChat#api), or [we can run one for your company](https://timesurgelabs.com/#contact). Installation is supported on x86 machines running Docker Compose.
+* **Searchbase Lite** is suitable for scenarios where security, while important, isn't the highest priority. Ideal for businesses wanting to keep data stored locally or embedding company-specific information into an LLM-powered chatbot. It is lighter with only two containers, can run on minimal hardware (2GB RAM and a single vCore), and requires a valid OpenAI API key for OpenAI API calls. Alternatively, Searchbase Lite can be used with a remotely hosted LLM that you own and run via [FastChat](https://github.com/lm-sys/FastChat#api), or [we can host one for you](https://timesurgelabs.com/#contact). It supports installation on x86 machines running Docker Compose.
 
-## Installation
+**Note: Please continue to the [installation guide](docs/install.md) for detailed instructions on setting up your Searchbase or Searchbase Lite.**
 
-Currently we only support installation via [Docker Compose](https://docs.docker.com/compose/). More installation methods will be added in the future. The installation process for the two versions is the same, the only difference is the Docker Compose file used. 
+### Why Use Searchbase?
 
-* For **Searchbase**, use the `docker/docker-compose.yml` file.
-* For **Searchbase Lite**, use the `docker/docker-compose-lite.yml` file.
+* **Independence and Flexibility** - Searchbase allows you to choose between local, hybrid, or fully hosted deployment options, ensuring the perfect balance between data privacy, security, and the flexibility of cloud services.
 
-```sh
-git clone https://github.com/TimeSurgeLabs/searchbase-llm.git
-cd searchbase-llm
-docker compose -f docker/docker-compose.yml build # or docker compose -f docker/docker-compose-lite.yml build
-cp .env.example .env
-nano .env # or open in your favorite text editor
-```
+* **Company-Specific Contextual Understanding** - By uploading and embedding your company's documentation, code, and other resources, Searchbase develops a unique understanding of your organization, driving contextually accurate interactions.
 
-### Configuration
+* **Reduced Time-To-Information** - Searchbase's ability to understand and learn from your organization's resources enables it to provide quicker, more accurate responses, reducing the time spent searching for information.
 
-For both versions:
-* `NEXTAUTH_URL` - The URL of your Searchbase instance. This is used for authentication and should be set to the URL you will be accessing Searchbase from. If you are not sure what this is going to be yet, you can set it to `http://localhost:3000` for now.
-* `NEXTAUTH_SECRET` - A random string used to encrypt cookies. Generate one with `openssl rand -hex 32`.
-* `DISCORD_CLIENT_ID` and `DISCORD_CLIENT_SECRET` - Your Discord OAuth2 client ID and secret. You can create a new application [here](https://discord.com/developers/applications).
-* `GITHUB_ID` and `GITHUB_SECRET` - Your GitHub OAuth2 client ID and secret. You can create a new application [here](https://github.com/settings/developers).
+* **Cost Savings** - With the option to deploy locally or in a hybrid model, you can significantly reduce ongoing costs associated with cloud services, making Searchbase a cost-effective alternative.
 
-For **Searchbase**:
-* `AI_MODE` - Set to the AI model that in configured in `docker/docker-compose.yml`. By default this is `fastchat-t5-3b-v1.0`.
+* **Security and Data Privacy** - As an organization, you can maintain complete control over your data with the option for fully local deployment, ensuring that all information stays within your network.
 
-For **Searchbase Lite** with OpenAI API:
-* `AI_MODE` - Set this to any AI model that your OpenAI account has access to. We recommend `gpt-3.5-turbo-16k` for the best balance of performance and cost.
-* `AI_BASE_URL` - Leave blank.
-* `AI_API_KEY` - Your OpenAI API key. You can find this [here](https://platform.openai.com/account/api-keys).
+* **Tailored Support** - Our enterprise support plans offer dedicated assistance, personalized to your organization's needs. This includes priority troubleshooting, updates, custom feature development, and more, providing you with a smooth, uninterrupted experience.
 
-For **Searchbase Lite** with a remote LLM:
-* `AI_MODE` - Set this to the configured AI model on the remote machine.
-* `AI_BASE_URL` - Set this to the base URL of the remote machine. For example, if the remote machine is at `https://example.com`, set this to `https://example.com/v1`.
-* `AI_API_KEY` - Leave blank. FastChat does not support setting an API key for remote LLMs yet. If there is some form of proxy in front of the remote LLM that requires an API key, you can set it here.
-
-### Running
-
-Once your `.env` is configured, you can start Searchbase with:
-
-```sh
-docker compose -f docker/docker-compose.yml up -d # or docker compose -f docker/docker-compose-lite.yml up -d
-```
-
-### Accessing
-
-Searchbase will be available at the URL you set in `NEXTAUTH_URL` . If you set it to `http://localhost:3000` , you can access it at `http://localhost:3000` . 
-
-### Creating the First User
-
-Go to the app and log in via the button in the top right of the screen. The first user can make themselves and admin by going to `http://localhost:3000/users` (or whatever your URL is) and clicking the green button next to the username that says `USER` . This will make them an admin which will allow them to manage users, upload data, and manage data. The button will be greyed out so that you can't accidentally demote yourself. Refresh the page to see the new "Admin" menu. Once this is complete you can use the admin menu to manage and see users, upload documents, and manage documents.
-
-### Caveats and Warnings
-
-* If you switch AI models when using **Searchbase** or **Searchbase Lite** with remote LLM, you will need to re-upload your documents. This is because the AI model is used to generate the embeddings for the documents, and if you switch models, the embeddings will be different. This is not an issue with Searchbase Lite with OpenAI API, as the embeddings are generated by the OpenAI API and are all the same.
-
-<small> * Depending on LLM model selected. </small>
+<small>* Depends on the LLM model selected. </small>
