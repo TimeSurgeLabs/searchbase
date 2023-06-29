@@ -1,6 +1,6 @@
 # <h1 align="center">Searchbase</h1>
 
-### <p align="center">Your company Intelligent and Versatile AI Chatbot</p>
+### <p align="center">Your company's Intelligent and Versatile AI Chatbot!</p>
 
 Searchbase brings you an open-source alternative to ChatGPT that can be deployed fully locally, on a hybrid cloud, or be hosted for you, offering unparalleled flexibility and security tailored to your needs. With support for embeddings, it utilizes your company's existing resources to deliver highly relevant responses in a conversational context. Enterprise-level support is available for organizations looking to leverage our expertise for an optimized experience.
 
