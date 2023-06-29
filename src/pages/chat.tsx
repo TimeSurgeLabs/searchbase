@@ -87,7 +87,7 @@ export default function Home() {
         </form>
       </dialog>
       <div className="flex justify-center">
-        <div className="flex w-full flex-col items-center justify-center rounded-xl bg-neutral p-1 text-neutral-content sm:w-3/4">
+        <div className="m-2 flex w-full flex-col items-center justify-center rounded-xl bg-neutral p-1 text-neutral-content sm:mx-4 md:mx-10 lg:w-3/4">
           <div className="flex w-full flex-col justify-center">
             <ChatHeader onClearChat={clear} />
 
@@ -117,7 +117,7 @@ export default function Home() {
             <form
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
               onSubmit={onSubmit}
-              className="flex w-3/4 items-center justify-center gap-4"
+              className="mx-1 flex w-full items-center justify-center gap-2 md:gap-4 lg:w-3/4"
             >
               <textarea
                 onChange={(e) => setInput(e.target.value)}

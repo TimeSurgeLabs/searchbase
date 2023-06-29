@@ -21,7 +21,7 @@ export default function Header({ onClearChat }: HeaderProps) {
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">
           Chat
         </h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="hidden text-sm text-gray-500 dark:text-gray-400 md:flex">
           Let&apos;s Chat!
         </p>
       </div>
