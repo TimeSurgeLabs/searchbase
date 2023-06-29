@@ -1,6 +1,6 @@
 # <h1 align="center">Searchbase</h1>
 
-### <p align="center">Your Intelligent and Versatile FOSS ChatGPT Alternative for High-Security Environments</p>
+### <p align="center">Your company Intelligent and Versatile AI Chatbot</p>
 
 Searchbase brings you an open-source alternative to ChatGPT that can be deployed fully locally, on a hybrid cloud, or be hosted for you, offering unparalleled flexibility and security tailored to your needs. With support for embeddings, it utilizes your company's existing resources to deliver highly relevant responses in a conversational context. Enterprise-level support is available for organizations looking to leverage our expertise for an optimized experience.
 
@@ -24,13 +24,13 @@ Searchbase brings you an open-source alternative to ChatGPT that can be deployed
 
 ## Versions
 
-Searchbase offers two versions for installation: **Searchbase** and **Searchbase Lite**, each designed for unique deployment scenarios.
+Searchbase offers two versions for installation: **Searchbase** and **Searchbase Secure**, each designed for unique deployment scenarios.
 
-* **Searchbase** is targeted towards enterprises prioritizing maximum data security and privacy. This version is fully local and does not require any external API calls, offering a high-security deployment. It is the heaviest version and requires at least* 250GB of SSD storage, a GPU with at least 8GB of VRAM* to run, as well as Docker Compose GPU passthrough support. Only Linux installation is supported.
+* **Searchbase Secure** is targeted towards enterprises prioritizing maximum data security and privacy. This version is fully local and does not require any external API calls, offering a high-security deployment. It is the heaviest version and requires at least* 250GB of SSD storage, a GPU with at least 8GB of VRAM* to run, as well as Docker Compose GPU passthrough support. Only Linux installation is supported.
 
-* **Searchbase Lite** is suitable for scenarios where security, while important, isn't the highest priority. Ideal for businesses wanting to keep data stored locally or embedding company-specific information into an LLM-powered chatbot. It is lighter with only two containers, can run on minimal hardware (2GB RAM and a single vCore), and requires a valid OpenAI API key for OpenAI API calls. Alternatively, Searchbase Lite can be used with a remotely hosted LLM that you own and run via [FastChat](https://github.com/lm-sys/FastChat#api), or [we can host one for you](https://timesurgelabs.com/#contact). It supports installation on x86 machines running Docker Compose.
+* **Searchbase** is suitable for scenarios where security, while important, isn't the highest priority. Ideal for businesses wanting to keep data stored locally or embedding company-specific information into an LLM-powered chatbot. It is lighter with only two containers, can run on minimal hardware (2GB RAM and a single vCore), and requires a valid OpenAI API key for OpenAI API calls. Alternatively, Searchbase can be used with a remotely hosted LLM that you own and run via [FastChat](https://github.com/lm-sys/FastChat#api), or [we can host one for you](https://timesurgelabs.com/#contact). It supports installation on x86 machines running Docker Compose.
 
-**Note: Please continue to the [installation guide](docs/install.md) for detailed instructions on setting up your Searchbase or Searchbase Lite.**
+**Note: Please continue to the [installation guide](docs/install.md) for detailed instructions on setting up your Searchbase or Searchbase Secure.**
 
 ### Why Use Searchbase?
 
