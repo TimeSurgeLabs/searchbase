@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useClipboard } from "@mantine/hooks";
 
 export interface ChatBubbleProps {
   variant?:
@@ -32,22 +33,32 @@ export default function ChatBubble({
   avatar,
   loading,
 }: ChatBubbleProps) {
+  const { copy, copied } = useClipboard({ timeout: 1000 });
   return (
-    <div className={`chat ${align === "start" ? "chat-start" : "chat-end"}`}>
-      {avatar && (
-        <div className="chat-image avatar">
-          <div className="w-10 rounded-full">
-            <Image src={avatar} alt="Avatar" />
+    <div>
+      <div className={`chat ${align === "start" ? "chat-start" : "chat-end"}`}>
+        {avatar && (
+          <div className="chat-image avatar">
+            <div className="w-10 rounded-full">
+              <Image src={avatar} alt="Avatar" />
+            </div>
           </div>
-        </div>
-      )}
-      <div className={`chat-bubble ${variant ? VariantMap[variant] : ""}`}>
-        {loading ? (
-          <span className="loading loading-dots loading-lg"></span>
-        ) : (
-          children
         )}
+
+        <div
+          onClick={() => copy(children)}
+          className={`chat-bubble cursor-pointer ${
+            variant ? VariantMap[variant] : ""
+          }`}
+        >
+          {loading ? (
+            <span className="loading loading-dots loading-lg"></span>
+          ) : (
+            children
+          )}
+        </div>
       </div>
+      {copied && <span className="badge badge-success">Message Copied!</span>}
     </div>
   );
 }
