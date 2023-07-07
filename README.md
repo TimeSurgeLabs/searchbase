@@ -1,6 +1,6 @@
-# <h1 align="center">Searchbase</h1>
+# <h1 align="center">🔎 Searchbase ⏳</h1>
 
-### <p align="center">Your company's Intelligent and Versatile AI Chatbot!</p>
+### <p align="center">⚡️ Supercharge productivity with your company's intelligent and versatile AI Chatbot! 🤖</p>
 
 Searchbase brings you an open-source alternative to ChatGPT that can be deployed fully locally, on a hybrid cloud, or be hosted for you, offering unparalleled flexibility and security tailored to your needs. With support for embeddings, it utilizes your company's existing resources to deliver highly relevant responses in a conversational context. Enterprise-level support is available for organizations looking to leverage our expertise for an optimized experience.
 
@@ -8,7 +8,7 @@ Searchbase brings you an open-source alternative to ChatGPT that can be deployed
 
 * **Fully Local or Hybrid Cloud Deployment** - With Searchbase, you can choose your preferred deployment scenario based on your business's privacy and flexibility needs. From running fully locally using open-source LLMs to employing the OpenAI API while maintaining data privacy or letting us host an LLM for you, Searchbase adapts to your requirements.
 
-* **Embeddings Support** - Empower your Searchbase instance by uploading company documentation, code, and other relevant resources. This creates a custom LLM that truly understands your organization, enabling quick and accurate responses without having to sift through volumes of data.
+* **Instant Training with Embeddings** - Empower your Searchbase instance by uploading company documentation, code, and other relevant resources. This creates a custom vector DB powered LLM that truly understands your organization, enabling quick and accurate responses without having to sift through volumes of data.
 
 * **Open Source Flexibility** - Searchbase is licensed under the [Apache 2.0 License](LICENSE), offering you the benefits of an open-source platform including transparency, flexibility, and community support.
 
@@ -46,4 +46,4 @@ Searchbase offers two versions for installation: **Searchbase** and **Searchbase
 
 * **Tailored Support** - Our enterprise support plans offer dedicated assistance, personalized to your organization's needs. This includes priority troubleshooting, updates, custom feature development, and more, providing you with a smooth, uninterrupted experience.
 
-<small>* Depends on the LLM model selected. </small>
+<small>* Depending on the LLM model selected. </small>
